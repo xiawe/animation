@@ -7,13 +7,18 @@ class SceneTitle extends XiaScene {
         var w = XiaAnimation.new(this.game)
         w.x = 100
         w.y = 200
+        this.w = w
         this.addElement(w)
+        this.setupInputs(w)
+    }
 
-        game.registerAction('a', function() {
-            w.move(-3)
+    setupInputs(w) {
+        this.game.registerAction('a', function(keyStatus) {
+            w.move(-10, keyStatus)
         })
-        game.registerAction('d', function() {
-            w.move(3)
+        this.game.registerAction('d', function(keyStatus) {
+            w.move(10, keyStatus)
+            // log('keyStatus', keyStatus)
         })
     }
 }

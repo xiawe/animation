@@ -41,11 +41,15 @@ var __main = function() {
         enemy3: 'img/enemy3.png',
         enemy4: 'img/enemy4.png',
         spark: 'img/spark.png',
-        m1: 'img/m1.png',
-        m2: 'img/m2.png',
-        m3: 'img/m3.png',
-        m4: 'img/m4.png',
-        m5: 'img/m5.png',
+        // 空闲 idle
+        idle1: 'img/idle1.png',
+        idle2: 'img/idle2.png',
+        // 跑动
+        run1: 'img/run1.png',
+        run2: 'img/run2.png',
+        run3: 'img/run3.png',
+        run4: 'img/run4.png',
+        run5: 'img/run5.png',
     }
     var game = XiaGame.instance(window.fps, images, function(g) {
         // var s = Scene.new(g) 

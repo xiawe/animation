@@ -1,18 +1,33 @@
 class XiaAnimation {
     constructor(game) {
         this.game = game
-        this.frame = []
-        for (let i = 1; i < 6; i++) {
-            var name = `m${i}`
+        this.animations = {
+            idle: [],
+            run: [],
+        }
+        for (let i = 1; i < 3; i++) {
+            var name = `idle${i}`
             var m = game.textureByName(name)
-            this.frame.push(m)
+            this.animations.idle.push(m)
+        }
+        for (let i = 1; i < 6; i++) {
+            var name = `run${i}`
+            var m = game.textureByName(name)
+            this.animations.run.push(m)
         }
         this.frameIndex = 0
         this.frameCount = 5
-        this.texture = this.frame[0]
+        this.animationName = 'idle'
+        this.texture = this.frames()[0]
     }
     static new(game) {
         return new this(game)
+    }
+    frames() {
+        return this.animations[this.animationName]
+    }
+    changeAnimation(name) {
+        this.animationName = name
     }
     draw() {
         this.game.drawImg(this)
@@ -22,11 +37,18 @@ class XiaAnimation {
         this.frameCount--
         if (this.frameCount == 0) {
             this.frameCount = 5
-            this.frameIndex = (this.frameIndex + 1) % this.frame.length
-            this.texture = this.frame[this.frameIndex]
+            this.frameIndex = (this.frameIndex + 1) % this.frames().length
+            this.texture = this.frames()[this.frameIndex]
         }
     }
-    move(s) {
+    move(s, keyStatus) {
+        // log('move', keyStatus)
+        var animationNames = {
+            down: 'run',
+            up: 'idle',
+        }
+        var name = animationNames[keyStatus]
+        this.changeAnimation(name)
         this.x += s
     }
 }

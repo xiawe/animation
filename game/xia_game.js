@@ -9,10 +9,10 @@ class XiaGame {
         this.context = this.canvas.getContext('2d')
 
         window.addEventListener('keydown', event => {
-            this.keydowns[event.key] = true
+            this.keydowns[event.key] = 'down'
         })
         window.addEventListener('keyup', event => {
-            this.keydowns[event.key] = false
+            this.keydowns[event.key] = 'up'
         })
     
         this.fps = fps
@@ -35,9 +35,13 @@ class XiaGame {
         var keys = Object.keys(this.actions)
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i]
-            if (this.keydowns[key]) {
-                this.actions[key]()
+            var keyStatus = this.keydowns[key]
+            if (keyStatus == 'down') {
+                this.actions[key]('down')
+            } else if (keyStatus == 'up') {
+                this.actions[key]('up')
             }
+            this.keydowns[key] = null
         }
         this.update()
         this.context.clearRect(0, 0, 400, 650)
